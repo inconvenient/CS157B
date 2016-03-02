@@ -1,4 +1,4 @@
-package Test;
+package PizzaProject;
 
 import org.hibernate.*;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

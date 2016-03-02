@@ -41,7 +41,7 @@ public class ServiceLayer {
 				System.out.println("User created succesfully.");
 				userCreated = true;
 			} else {
-
+				System.out.println("Error creating user. Please try again.");
 			}
 		}
 		return user;
@@ -61,7 +61,7 @@ public class ServiceLayer {
 				System.out.println("Logged in successfully.");
 				loggedIn = true;
 			} else {
-				System.out.println("Error creating user. Please try again.");
+				System.out.println("Error logging in. Please try again.");
 			}
 		}
 		return user;
