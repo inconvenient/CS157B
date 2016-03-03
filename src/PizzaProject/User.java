@@ -64,4 +64,8 @@ public class User {
 		return this.orders;
 	}
 
+	public String toString() {
+		return this.username;
+	}
+
 }

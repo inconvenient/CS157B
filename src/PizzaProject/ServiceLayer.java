@@ -2,6 +2,7 @@ package PizzaProject;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ServiceLayer {
@@ -67,22 +68,37 @@ public class ServiceLayer {
 		return user;
 	}
 
-	public Order createOrder(Order order) {
-		return order;
+	public Order createOrder() {
+		System.out.println("Please select 3 toppings separated by spaces. Ex: 1 2 3");
+		System.out.println("1.Pepperoni\n2.Mushrooms\n3.Onions\n4.Sausage\n5.Bacon");
+		System.out.println("6.Extra Cheese\n7.Black Olives\n8.Green Peppers\n9.Pineapple\n10.Spinach");
+		String input = in.nextLine();
+		// Parsing user input
+		List<Integer> choices = new ArrayList<Integer>();
+		for (String choice : input.split(" ")) {
+			if (choice.matches("[0-9]")) {
+				choices.add(Integer.parseInt(choice));
+			} else {
+				System.out.println("Error with choices. Please try again");
+			}
+		}
+		// Take choices and create topping objects to place into Order object.
+
+		return null;
 
 	}
 
-	public boolean cancelOrder(Order order) {
+	public boolean cancelOrder() {
 		return false;
 
 	}
 
-	public Order changeOrder(Order order) {
-		return order;
+	public Order changeOrder() {
+		return null;
 
 	}
 
-	public ArrayList<Order> viewOrders(Order order) {
+	public ArrayList<Order> viewOrders() {
 		return null;
 
 	}

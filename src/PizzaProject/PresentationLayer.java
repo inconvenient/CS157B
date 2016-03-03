@@ -7,7 +7,9 @@ public class PresentationLayer {
 	// Variables
 	static int option;
 	static boolean loggedIn = false;
+	static boolean exit = false;
 	static Scanner in = new Scanner(System.in);
+	static User currentUser = null;
 
 	// Service Layer
 	static ServiceLayer sl = new ServiceLayer();
@@ -21,14 +23,48 @@ public class PresentationLayer {
 		while (!loggedIn) {
 			option = in.nextInt();
 			if (option == 1) {
-				loggedIn = true;
-				sl.login();
+				currentUser = sl.login();
+				if (currentUser != null) {
+					loggedIn = true;
+				}
 			} else if (option == 2) {
-				loggedIn = true;
-				sl.createUser();
+				currentUser = sl.createUser();
+				if (currentUser != null) {
+					loggedIn = true;
+					System.out.println("You are now logged in.");
+				}
+
 			} else {
 				System.out.println("Not an option, please enter 1 to log in or 2 to register.");
 			}
+		}
+		// User actions
+		while (!exit) {
+			int choice;
+			System.out.println("-----------------------------");
+			System.out.println("What would you like to do?");
+			System.out.println("1. Make an order");
+			System.out.println("2. Change an order");
+			System.out.println("3. Cancel an order");
+			System.out.println("4. View all orders");
+			System.out.println("5. Exit");
+			choice = in.nextInt();
+			switch (choice) {
+			case 1:
+				sl.createOrder();
+			case 2:
+				sl.changeOrder();
+			case 3:
+				sl.cancelOrder();
+			case 4:
+				sl.viewOrders();
+			case 5:
+				exit = true;
+				System.exit(0);
+			default:
+				System.out.println("Not an option. Please choose again");
+			}
+
 		}
 
 	}

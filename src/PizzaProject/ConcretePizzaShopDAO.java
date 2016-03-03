@@ -1,6 +1,8 @@
 package PizzaProject;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -17,6 +19,7 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 	public User createUser(User user) {
 		Session session = null;
 		Transaction transaction = null;
+		boolean warning = false;
 
 		try {
 			sessionFactory = HibernateUtil.getSessionFactory();
@@ -27,16 +30,40 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 		} catch (HibernateException he) {
 			transaction.rollback();
 			System.out.println("DAO Error: Transaction rolled back.");
+			warning = true;
 		} finally {
 			session.close();
 			sessionFactory.close();
+		}
+		if (warning) {
+			return null;
 		}
 		return user;
 	}
 
 	@Override
 	public User login(String username, String password) {
-		return null;
+		Session session = null;
+		Transaction transaction = null;
+		List result = null;
+
+		try {
+			sessionFactory = HibernateUtil.getSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Query login = session.createQuery("FROM User WHERE USERNAME = :user AND PASSWORD = :pw");
+			login.setParameter("user", username);
+			login.setParameter("pw", password);
+			result = ((org.hibernate.Query) login).list();
+			System.out.println(result.toString());
+
+		} catch (HibernateException he) {
+			System.out.println("DAO Error: Transaction rolled back.");
+			System.out.println(he.getMessage());
+		} finally {
+			session.close();
+			sessionFactory.close();
+		}
+		return (User) result.get(0);
 	}
 
 	@Override
