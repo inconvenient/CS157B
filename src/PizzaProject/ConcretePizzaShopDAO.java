@@ -15,7 +15,6 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 
 	private SessionFactory sessionFactory;
 
-	@Override
 	public User createUser(User user) {
 		Session session = null;
 		Transaction transaction = null;
@@ -41,7 +40,6 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 		return user;
 	}
 
-	@Override
 	public User login(String username, String password) {
 		Session session = null;
 		Transaction transaction = null;
@@ -63,25 +61,24 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 			session.close();
 			sessionFactory.close();
 		}
+		if (result.isEmpty()) {
+			return null;
+		}
 		return (User) result.get(0);
 	}
 
-	@Override
 	public Order createOrder(Order order) {
 		return null;
 	}
 
-	@Override
 	public ArrayList<Order> viewOrder() {
 		return null;
 	}
 
-	@Override
 	public Order changeOrder(Order order) {
 		return null;
 	}
 
-	@Override
 	public boolean cancelOrder(Order order) {
 		return false;
 	}

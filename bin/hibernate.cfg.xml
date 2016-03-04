@@ -27,7 +27,6 @@
 		<property name="hbm2ddl.auto"></property>
 
 		<!-- Mention here all the model classes along with their package name -->
-
 		<mapping class="PizzaProject.User" />
 		<mapping class="PizzaProject.Order" />
 

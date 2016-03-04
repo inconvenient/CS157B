@@ -2,27 +2,23 @@ package PizzaProject;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Embeddable
 public class Order {
 
-	private enum PaymentMethod {
-		CASH, VISA, MASTER
-	}
-
-	private enum PizzaSize {
-
-		SMALL(3), MEDIUM(5), LARGE(5);
-		private int cost;
-
-		PizzaSize(int cost) {
-			this.cost = cost;
-		}
-	}
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ORDER_ID")
 	private int orderId;
+	@Column(name = "USER")
+	private User user;
 	@Column(name = "PRICE")
 	private int price;
 	@Column(name = "DELIVERY_TIME")
@@ -31,6 +27,22 @@ public class Order {
 	private PaymentMethod paymentMethod;
 	@Column(name = "SIZE")
 	private PizzaSize size;
+	@Column(name = "TOPPINGS")
+	private List<Topping> toppings = new ArrayList<Topping>();
+
+	enum PaymentMethod {
+		CASH, VISA, MASTER
+	}
+
+	enum PizzaSize {
+
+		SMALL(3), MEDIUM(5), LARGE(7);
+		private int cost;
+
+		PizzaSize(int cost) {
+			this.cost = cost;
+		}
+	}
 
 	public PaymentMethod getPaymentMethod() {
 		return paymentMethod;
@@ -46,14 +58,6 @@ public class Order {
 
 	public void setSize(PizzaSize size) {
 		this.size = size;
-	}
-
-	public PaymentMethod getPm() {
-		return paymentMethod;
-	}
-
-	public void setPm(PaymentMethod pm) {
-		this.paymentMethod = pm;
 	}
 
 	public int getOrderId() {
@@ -78,6 +82,14 @@ public class Order {
 
 	public void setDeliveryTime(Date deliveryTime) {
 		this.deliveryTime = deliveryTime;
+	}
+
+	public void addTopping(Topping topping) {
+		toppings.add(topping);
+	}
+
+	public void removeTopping(Topping topping) {
+		toppings.remove(topping);
 	}
 
 }

@@ -33,7 +33,6 @@ public class PresentationLayer {
 					loggedIn = true;
 					System.out.println("You are now logged in.");
 				}
-
 			} else {
 				System.out.println("Not an option, please enter 1 to log in or 2 to register.");
 			}
@@ -51,18 +50,23 @@ public class PresentationLayer {
 			choice = in.nextInt();
 			switch (choice) {
 			case 1:
-				sl.createOrder();
+				sl.createOrder(currentUser);
+				break;
 			case 2:
 				sl.changeOrder();
+				break;
 			case 3:
 				sl.cancelOrder();
+				break;
 			case 4:
 				sl.viewOrders();
+				break;
 			case 5:
 				exit = true;
 				System.exit(0);
 			default:
 				System.out.println("Not an option. Please choose again");
+				break;
 			}
 
 		}
