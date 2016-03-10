@@ -42,23 +42,24 @@ public class Order {
 	@Temporal(TemporalType.DATE)
 	private Date deliveryTime;
 
+	@Enumerated
 	@Column(name = "PAYMENT_METHOD")
-	// @Enumerated(EnumType.STRING)
 	private PaymentMethod paymentMethod;
 
+	@Enumerated
 	@Column(name = "SIZE")
-	// @Enumerated(EnumType.ORDINAL)
 	private PizzaSize size;
 
 	@Embedded
 	@Column(name = "TOPPINGS")
 	private List<Topping> toppings = new ArrayList<Topping>();
 
-	enum PaymentMethod {
-		CASH, VISA, MASTER
+	public enum PaymentMethod {
+		CASH, VISA, MASTER;
+
 	}
 
-	enum PizzaSize {
+	public enum PizzaSize {
 
 		SMALL(3), MEDIUM(5), LARGE(7);
 		private int cost;
@@ -86,6 +87,7 @@ public class Order {
 
 	public void setSize(PizzaSize size) {
 		this.size = size;
+		this.price = size.cost;
 	}
 
 	public int getOrderId() {
