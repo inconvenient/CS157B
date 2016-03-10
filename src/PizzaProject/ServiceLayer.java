@@ -71,7 +71,7 @@ public class ServiceLayer {
 		return user;
 	}
 
-	public Order createOrder(User user) {
+	public void createOrder(User user) {
 		// Main Order Components
 		boolean orderMade = false;
 		boolean toppingsMade = false;
@@ -248,10 +248,8 @@ public class ServiceLayer {
 				System.out.println("Payment method chosen.");
 			}
 			// Finalize order and call DAO.
+			DAO.createOrder(user, order);
 		}
-
-		return null;
-
 	}
 
 	public boolean cancelOrder() {

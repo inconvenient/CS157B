@@ -8,7 +8,7 @@ public interface PizzaShopDAO {
 
 	User login(String username, String password);
 
-	Order createOrder(Order order);
+	Order createOrder(User user, Order order);
 
 	ArrayList<Order> viewOrder();
 

@@ -67,7 +67,27 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 		return (User) result.get(0);
 	}
 
-	public Order createOrder(Order order) {
+	public Order createOrder(User user, Order order) {
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			sessionFactory = HibernateUtil.getSessionFactory();
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+
+			session.save(user);
+			user.addOrder(order);
+
+			session.update(user);
+			transaction.commit();
+
+		} catch (HibernateException he) {
+			System.out.println("DAO Error: Create Order Failed");
+			System.out.println(he.getMessage());
+		} finally {
+			session.close();
+			sessionFactory.close();
+		}
 		return null;
 	}
 

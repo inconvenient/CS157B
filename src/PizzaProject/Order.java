@@ -44,6 +44,10 @@ public class Order {
 		}
 	}
 
+	public Order() {
+
+	}
+
 	public PaymentMethod getPaymentMethod() {
 		return paymentMethod;
 	}
