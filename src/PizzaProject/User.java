@@ -17,11 +17,14 @@ public class User {
 
 	@Column(unique = true, name = "USERNAME")
 	private String username;
+	
 	@Column(name = "PASSWORD")
 	private String password;
+	
 	@Column(name = "ADDRESS")
 	private Address address;
-	@Column(name = "ORDERS")
+	
+	@Column(name = "ORDERS", nullable = true)
 	@OneToMany(mappedBy = "user", targetEntity = Order.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Order> orders = new ArrayList<Order>();
 

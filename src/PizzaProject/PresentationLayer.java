@@ -63,6 +63,7 @@ public class PresentationLayer {
 				break;
 			case 5:
 				exit = true;
+				System.out.println("Bye");
 				System.exit(0);
 			default:
 				System.out.println("Not an option. Please choose again");

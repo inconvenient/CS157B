@@ -85,6 +85,7 @@ public class ServiceLayer {
 
 		List<Integer> choices = null;
 		Order order = new Order();
+		order.addUser(user);
 		// Parsing user input
 		while (!orderMade) {
 			// Pick size loop
@@ -248,7 +249,9 @@ public class ServiceLayer {
 				System.out.println("Payment method chosen.");
 			}
 			// Finalize order and call DAO.
+			user.addOrder(order);
 			DAO.createOrder(user, order);
+			orderMade = true;
 		}
 	}
 

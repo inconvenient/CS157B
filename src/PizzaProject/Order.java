@@ -1,6 +1,8 @@
 package PizzaProject;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,8 +14,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,19 +30,28 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ORDER_ID")
 	private int orderId;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER")
+	@JoinColumn(name = "USERNAME")
 	private User user;
+
 	@Column(name = "PRICE")
 	private int price;
+
 	@Column(name = "DELIVERY_TIME")
+	@Temporal(TemporalType.DATE)
 	private Date deliveryTime;
+
 	@Column(name = "PAYMENT_METHOD")
+	// @Enumerated(EnumType.STRING)
 	private PaymentMethod paymentMethod;
+
 	@Column(name = "SIZE")
+	// @Enumerated(EnumType.ORDINAL)
 	private PizzaSize size;
-	@Column(name = "TOPPINGS")
+
 	@Embedded
+	@Column(name = "TOPPINGS")
 	private List<Topping> toppings = new ArrayList<Topping>();
 
 	enum PaymentMethod {
@@ -106,6 +118,10 @@ public class Order {
 
 	public void removeTopping(Topping topping) {
 		toppings.remove(topping);
+	}
+
+	public void addUser(User u) {
+		this.user = u;
 	}
 
 }
