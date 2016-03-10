@@ -1,15 +1,23 @@
 package PizzaProject;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 @Embeddable
 public class Order {
 
@@ -17,7 +25,8 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ORDER_ID")
 	private int orderId;
-	@Column(name = "USER")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER")
 	private User user;
 	@Column(name = "PRICE")
 	private int price;
@@ -28,6 +37,7 @@ public class Order {
 	@Column(name = "SIZE")
 	private PizzaSize size;
 	@Column(name = "TOPPINGS")
+	@ElementCollection(targetClass = Topping.class)
 	private List<Topping> toppings = new ArrayList<Topping>();
 
 	enum PaymentMethod {

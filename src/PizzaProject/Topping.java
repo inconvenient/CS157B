@@ -1,7 +1,14 @@
 package PizzaProject;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+@Embeddable
 public class Topping {
 
+	@Id
 	private String topping;
 
 	public Topping(String toppingName) {

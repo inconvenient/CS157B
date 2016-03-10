@@ -1,6 +1,7 @@
 package PizzaProject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -21,8 +22,9 @@ public class User {
 	private String password;
 	@Column(name = "ADDRESS")
 	private Address address;
+	@OneToMany(mappedBy = "user", targetEntity = Order.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Column(name = "ORDERS")
-	private ArrayList<Order> orders = new ArrayList<Order>();
+	private List<Order> orders = new ArrayList<Order>();
 
 	public User() {
 
@@ -64,7 +66,7 @@ public class User {
 		this.orders.add(order);
 	}
 
-	public ArrayList<Order> getOrder() {
+	public List<Order> getOrder() {
 		return this.orders;
 	}
 
