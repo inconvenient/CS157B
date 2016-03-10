@@ -70,15 +70,19 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 	public Order createOrder(User user, Order order) {
 		Session session = null;
 		Transaction transaction = null;
+		List<User> result = null;
 		try {
 			sessionFactory = HibernateUtil.getSessionFactory();
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
 
-			session.save(user);
-			user.addOrder(order);
-
-			session.update(user);
+			org.hibernate.Query getUser = session.createQuery("FROM User WHERE USERNAME = :user");
+			getUser.setParameter("user", user.getUsername());
+			result = ((org.hibernate.Query) getUser).list();
+			for (User u : result) {
+				u.addOrder(order);
+				session.update(u);
+			}
 			transaction.commit();
 
 		} catch (HibernateException he) {

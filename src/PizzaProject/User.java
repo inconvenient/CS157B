@@ -22,7 +22,11 @@ public class User {
 	@Column(name = "ADDRESS")
 	private Address address;
 	@Column(name = "ORDERS")
-	private ArrayList<Order> orders;
+	private ArrayList<Order> orders = new ArrayList<Order>();
+
+	public User() {
+
+	}
 
 	public int getUserId() {
 		return userId;
