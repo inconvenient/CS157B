@@ -67,7 +67,7 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 		return (User) result.get(0);
 	}
 
-	public Order createOrder(User user, Order order) {
+	public void createOrder(User user, Order order) {
 		Session session = null;
 		Transaction transaction = null;
 		try {
@@ -85,7 +85,6 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 			session.close();
 			sessionFactory.close();
 		}
-		return null;
 	}
 
 	public ArrayList<Order> viewOrder() {

@@ -10,6 +10,16 @@ import PizzaProject.Order.PizzaSize;
 public class ServiceLayer {
 
 	ConcretePizzaShopDAO DAO = new ConcretePizzaShopDAO();
+	public static Topping pepperoni = new Topping("Pepperoni");
+	public static Topping mushrooms = new Topping("Mushrooms");
+	public static Topping onions = new Topping("Olives");
+	public static Topping sausage = new Topping("Sausage");
+	public static Topping bacon = new Topping("Bacon");
+	public static Topping extracheese = new Topping("Extra Cheese");
+	public static Topping blackolives = new Topping("Black Olives");
+	public static Topping greenpeppers = new Topping("Green Peppers");
+	public static Topping pineapple = new Topping("Pineapple");
+	public static Topping spinach = new Topping("Spinach");
 
 	Scanner in = new Scanner(System.in);
 
@@ -141,34 +151,34 @@ public class ServiceLayer {
 					for (int choice : choices) {
 						switch (choice) {
 						case 1:
-							toppings.add(new Topping("Pepperoni"));
+							toppings.add(pepperoni);
 							break;
 						case 2:
-							toppings.add(new Topping("Mushrooms"));
+							toppings.add(mushrooms);
 							break;
 						case 3:
-							toppings.add(new Topping("Onions"));
+							toppings.add(onions);
 							break;
 						case 4:
-							toppings.add(new Topping("Sausage"));
+							toppings.add(sausage);
 							break;
 						case 5:
-							toppings.add(new Topping("Bacon"));
+							toppings.add(bacon);
 							break;
 						case 6:
-							toppings.add(new Topping("Extra Cheese"));
+							toppings.add(extracheese);
 							break;
 						case 7:
-							toppings.add(new Topping("Black Olives"));
+							toppings.add(blackolives);
 							break;
 						case 8:
-							toppings.add(new Topping("Green Peppers"));
+							toppings.add(greenpeppers);
 							break;
 						case 9:
-							toppings.add(new Topping("Pineapple"));
+							toppings.add(pineapple);
 							break;
 						case 10:
-							toppings.add(new Topping("Spinach"));
+							toppings.add(spinach);
 							break;
 						default:
 							System.out.println("Error inserting a topping. Please check your choices again.");
