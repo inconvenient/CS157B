@@ -26,4 +26,9 @@ public class Topping {
 		this.topping = topping;
 	}
 
+    @Override
+    public String toString() {
+        return this.topping;
+    }
+
 }

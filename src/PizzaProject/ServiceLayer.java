@@ -195,7 +195,6 @@ public class ServiceLayer {
 				while (!toppingApprove) {
 					System.out.println("Are these the correct toppings?");
 					for (Topping t : toppings) {
-						// Fix this toString
 						System.out.println(t.toString());
 					}
 					System.out.println("1. Yes\n2. No");

@@ -70,7 +70,7 @@ public class PresentationLayer {
                     System.out.println("Size: " + o.getSize());
                     System.out.print("Toppings: ");
                     for (Topping t : o.getToppings()) {
-                        System.out.print(t + " ");
+                        System.out.print(t.toString() + " ");
                     }
                     System.out.println();
                     System.out.println("Payment Method: " + o.getPaymentMethod());
