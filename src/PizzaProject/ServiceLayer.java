@@ -1,11 +1,9 @@
 package PizzaProject;
 
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import PizzaProject.Order.PizzaSize;
 
 public class ServiceLayer {
 
@@ -265,17 +263,15 @@ public class ServiceLayer {
 		}
 	}
 
+	public List<Order> viewOrders(User user) {
+		return DAO.viewOrder(user);
+	}
+
 	public boolean cancelOrder() {
 		return false;
-
 	}
 
 	public Order changeOrder() {
-		return null;
-
-	}
-
-	public ArrayList<Order> viewOrders() {
 		return null;
 
 	}

@@ -87,8 +87,27 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 		}
 	}
 
-	public ArrayList<Order> viewOrder() {
-		return null;
+	public List<Order> viewOrder(User user) {
+		Session session = null;
+		Transaction transaction = null;
+		List<Order> result = null;
+
+		try {
+			sessionFactory = HibernateUtil.getSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Query viewOrders = session.createQuery("FROM Order WHERE USERNAME = :userID");
+			viewOrders.setParameter("userID", user.getUserId());
+			result = (List<Order>)((org.hibernate.Query) viewOrders).list();
+			//System.out.println(result.toString());
+
+		} catch (HibernateException he) {
+			System.out.println("DAO Error: Transaction rolled back.");
+			System.out.println(he.getMessage());
+		} finally {
+			session.close();
+			sessionFactory.close();
+		}
+		return result;
 	}
 
 	public Order changeOrder(Order order) {

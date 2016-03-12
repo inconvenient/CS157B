@@ -1,6 +1,7 @@
 package PizzaProject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface PizzaShopDAO {
 
@@ -10,7 +11,7 @@ public interface PizzaShopDAO {
 
 	void createOrder(User user, Order order);
 
-	ArrayList<Order> viewOrder();
+	List viewOrder(User user);
 
 	Order changeOrder(Order order);
 

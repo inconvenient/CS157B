@@ -1,5 +1,6 @@
 package PizzaProject;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class PresentationLayer {
@@ -59,7 +60,22 @@ public class PresentationLayer {
 				sl.cancelOrder();
 				break;
 			case 4:
-				sl.viewOrders();
+				List<Order> orders = sl.viewOrders(currentUser);
+                System.out.println("Here are your orders.");
+                System.out.println("---------------------------------");
+                for (Order o : orders) {
+                    System.out.println("Order ID: " + o.getOrderId());
+                    System.out.println("Delivery Time: " + o.getDeliveryTime());
+                    System.out.println("Price: " + o.getPrice());
+                    System.out.println("Size: " + o.getSize());
+                    System.out.print("Toppings: ");
+                    for (Topping t : o.getToppings()) {
+                        System.out.print(t + " ");
+                    }
+                    System.out.println();
+                    System.out.println("Payment Method: " + o.getPaymentMethod());
+                    System.out.println("---------------------------------");
+                }
 				break;
 			case 5:
 				exit = true;

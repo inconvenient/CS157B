@@ -11,6 +11,9 @@ public class Topping {
 	@Column(name = "topping")
 	private String topping;
 
+    public Topping() {
+
+    }
 	public Topping(String toppingName) {
 		this.topping = toppingName;
 	}

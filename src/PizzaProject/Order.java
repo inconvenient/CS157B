@@ -34,7 +34,7 @@ public class Order {
 	@Column(name = "SIZE")
 	private PizzaSize size;
 
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinTable(name="order_topping", joinColumns=@JoinColumn(name="order_id"), inverseJoinColumns=@JoinColumn(name="topping"))
 	@Column(name = "TOPPINGS")
 	private List<Topping> toppings = new ArrayList<Topping>();
@@ -105,6 +105,10 @@ public class Order {
 
 	public void removeTopping(Topping topping) {
 		toppings.remove(topping);
+	}
+
+	public List<Topping> getToppings() {
+		return this.toppings;
 	}
 
 	public void addUser(User u) {
