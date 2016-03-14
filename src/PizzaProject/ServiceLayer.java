@@ -86,8 +86,11 @@ public class ServiceLayer {
 				System.out.println("Logged in successfully as " + user.toString() + ".");
 				loggedIn = true;
 			} else {
-				System.out.println("Error logging in. Please try again.");
-				login();
+				System.out.println("No user found. Please create an account!");
+				user = createUser();
+				if (user != null) {
+					loggedIn = true;
+				}
 			}
 		}
 		return user;
