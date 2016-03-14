@@ -3,6 +3,7 @@ package PizzaProject;
 import javax.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class Order {
 
 	@Column(name = "DELIVERY_TIME")
 	@Temporal(TemporalType.DATE)
-	private Date deliveryTime;
+	private Calendar deliveryTime;
 
 	@Enumerated
 	@Column(name = "PAYMENT_METHOD")
@@ -46,8 +47,7 @@ public class Order {
 
 	public enum PizzaSize {
 
-		SMALL(3), MEDIUM(5), LARGE(7), 
-		dSMALL(2.7), dMEDIUM(4.5), dLARGE(6.3);
+		SMALL(3), MEDIUM(5), LARGE(7), dSMALL(2.7), dMEDIUM(4.5), dLARGE(6.3);
 		private double cost;
 
 		PizzaSize(double cost) {
@@ -92,11 +92,11 @@ public class Order {
 		this.size.cost = price;
 	}
 
-	public Date getDeliveryTime() {
+	public Calendar getDeliveryTime() {
 		return deliveryTime;
 	}
 
-	public void setDeliveryTime(Date deliveryTime) {
+	public void setDeliveryTime(Calendar deliveryTime) {
 		this.deliveryTime = deliveryTime;
 	}
 

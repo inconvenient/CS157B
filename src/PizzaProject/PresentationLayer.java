@@ -64,7 +64,7 @@ public class PresentationLayer {
 				System.out.println("---------------------------------");
 				for (Order o : orders2) {
 					System.out.println("Order ID: " + o.getOrderId());
-					System.out.println("Delivery Time: " + o.getDeliveryTime());
+					System.out.println("Delivery Time: " + o.getDeliveryTime().getTime());
 					System.out.println("Price: " + o.getPrice());
 					System.out.println("Size: " + o.getSize());
 					System.out.print("Toppings: ");
@@ -85,7 +85,7 @@ public class PresentationLayer {
 				System.out.println("---------------------------------");
 				for (Order o : orders3) {
 					System.out.println("Order ID: " + o.getOrderId());
-					System.out.println("Delivery Time: " + o.getDeliveryTime());
+					System.out.println("Delivery Time: " + o.getDeliveryTime().getTime());
 					System.out.println("Price: " + o.getPrice());
 					System.out.println("Size: " + o.getSize());
 					System.out.print("Toppings: ");
@@ -111,7 +111,7 @@ public class PresentationLayer {
 				System.out.println("---------------------------------");
 				for (Order o : orders4) {
 					System.out.println("Order ID: " + o.getOrderId());
-					System.out.println("Delivery Time: " + o.getDeliveryTime());
+					System.out.println("Delivery Time: " + o.getDeliveryTime().getTime());
 					System.out.println("Price: " + o.getPrice());
 					System.out.println("Size: " + o.getSize());
 					System.out.print("Toppings: ");

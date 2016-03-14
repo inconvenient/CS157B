@@ -1,6 +1,8 @@
 package PizzaProject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -273,6 +275,13 @@ public class ServiceLayer {
 				}
 				System.out.println("Payment method chosen.");
 			}
+
+			// Set Date
+			Calendar date = Calendar.getInstance();
+			date.setTime(new Date());
+			date.add(Calendar.HOUR_OF_DAY, 1);
+			order.setDeliveryTime(date);
+
 			// Finalize order and call DAO.
 			user.addOrder(order);
 			DAO.createOrder(user, order);
@@ -457,6 +466,13 @@ public class ServiceLayer {
 				}
 				System.out.println("Payment method chosen.");
 			}
+
+			// Set Date
+			Calendar date = Calendar.getInstance();
+			date.setTime(new Date());
+			date.add(Calendar.HOUR_OF_DAY, 2);
+			discOrder.setDeliveryTime(date);
+
 			// Finalize order and call DAO.
 			user.addOrder(discOrder);
 			DAO.createDiscountedOrder(user, discOrder);
@@ -648,6 +664,7 @@ public class ServiceLayer {
 				}
 				System.out.println("Payment method chosen.");
 			}
+
 			// Finalize order and call DAO.
 			DAO.changeOrder(user, orderID, order);
 			orderMade = true;
