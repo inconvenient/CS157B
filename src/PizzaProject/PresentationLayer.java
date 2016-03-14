@@ -38,6 +38,10 @@ public class PresentationLayer {
 				System.out.println("Not an option, please enter 1 to log in or 2 to register.");
 			}
 		}
+
+		// Prepare toppings table
+		sl.prepareToppings();
+
 		// User actions
 		while (!exit) {
 			int choice;
@@ -47,37 +51,82 @@ public class PresentationLayer {
 			System.out.println("2. Change an order");
 			System.out.println("3. Cancel an order");
 			System.out.println("4. View all orders");
-			System.out.println("5. Exit");
+			System.out.println("5. Make a discounted order");
+			System.out.println("6. Exit");
 			choice = in.nextInt();
 			switch (choice) {
 			case 1:
 				sl.createOrder(currentUser);
 				break;
 			case 2:
-				sl.changeOrder();
+				List<Order> orders2 = sl.viewOrders(currentUser);
+				System.out.println("Here are your orders.");
+				System.out.println("---------------------------------");
+				for (Order o : orders2) {
+					System.out.println("Order ID: " + o.getOrderId());
+					System.out.println("Delivery Time: " + o.getDeliveryTime());
+					System.out.println("Price: " + o.getPrice());
+					System.out.println("Size: " + o.getSize());
+					System.out.print("Toppings: ");
+					for (Topping t : o.getToppings()) {
+						System.out.print(t.toString() + " ");
+					}
+					System.out.println();
+					System.out.println("Payment Method: " + o.getPaymentMethod());
+					System.out.println("---------------------------------");
+				}
+				System.out.println("Which order would you like to change?");
+				int orderID1 = in.nextInt();
+				sl.changeOrder(currentUser, orderID1);
 				break;
 			case 3:
-				sl.cancelOrder();
+				List<Order> orders3 = sl.viewOrders(currentUser);
+				System.out.println("Here are your orders.");
+				System.out.println("---------------------------------");
+				for (Order o : orders3) {
+					System.out.println("Order ID: " + o.getOrderId());
+					System.out.println("Delivery Time: " + o.getDeliveryTime());
+					System.out.println("Price: " + o.getPrice());
+					System.out.println("Size: " + o.getSize());
+					System.out.print("Toppings: ");
+					for (Topping t : o.getToppings()) {
+						System.out.print(t.toString() + " ");
+					}
+					System.out.println();
+					System.out.println("Payment Method: " + o.getPaymentMethod());
+					System.out.println("---------------------------------");
+				}
+				System.out.println("Which order would you like to cancel?");
+				int orderID2 = in.nextInt();
+				int successes = sl.cancelOrder(currentUser, orderID2);
+				if (successes == 0) {
+					System.out.println("Unsuccessful cancellation, please try again.");
+				} else {
+					System.out.println("Successfully deleted " + successes + " orders.");
+				}
 				break;
 			case 4:
-				List<Order> orders = sl.viewOrders(currentUser);
-                System.out.println("Here are your orders.");
-                System.out.println("---------------------------------");
-                for (Order o : orders) {
-                    System.out.println("Order ID: " + o.getOrderId());
-                    System.out.println("Delivery Time: " + o.getDeliveryTime());
-                    System.out.println("Price: " + o.getPrice());
-                    System.out.println("Size: " + o.getSize());
-                    System.out.print("Toppings: ");
-                    for (Topping t : o.getToppings()) {
-                        System.out.print(t.toString() + " ");
-                    }
-                    System.out.println();
-                    System.out.println("Payment Method: " + o.getPaymentMethod());
-                    System.out.println("---------------------------------");
-                }
+				List<Order> orders4 = sl.viewOrders(currentUser);
+				System.out.println("Here are your orders.");
+				System.out.println("---------------------------------");
+				for (Order o : orders4) {
+					System.out.println("Order ID: " + o.getOrderId());
+					System.out.println("Delivery Time: " + o.getDeliveryTime());
+					System.out.println("Price: " + o.getPrice());
+					System.out.println("Size: " + o.getSize());
+					System.out.print("Toppings: ");
+					for (Topping t : o.getToppings()) {
+						System.out.print(t.toString() + " ");
+					}
+					System.out.println();
+					System.out.println("Payment Method: " + o.getPaymentMethod());
+					System.out.println("---------------------------------");
+				}
 				break;
 			case 5:
+				sl.createDiscountedOrder(currentUser);
+				break;
+			case 6:
 				exit = true;
 				System.out.println("Bye");
 				System.exit(0);

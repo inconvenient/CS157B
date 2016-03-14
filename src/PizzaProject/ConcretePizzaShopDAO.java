@@ -97,8 +97,7 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 			session = sessionFactory.openSession();
 			org.hibernate.Query viewOrders = session.createQuery("FROM Order WHERE USERNAME = :userID");
 			viewOrders.setParameter("userID", user.getUserId());
-			result = (List<Order>)((org.hibernate.Query) viewOrders).list();
-			//System.out.println(result.toString());
+			result = (List<Order>) ((org.hibernate.Query) viewOrders).list();
 
 		} catch (HibernateException he) {
 			System.out.println("DAO Error: Transaction rolled back.");
@@ -110,12 +109,99 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 		return result;
 	}
 
-	public Order changeOrder(Order order) {
-		return null;
+	public void changeOrder(User user, int orderID, Order newOrder) {
+		Session session = null;
+		Transaction transaction = null;
+
+		try {
+			sessionFactory = HibernateUtil.getSessionFactory();
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			Order oldOrder = (Order) session.get(Order.class, orderID);
+			oldOrder.setSize(newOrder.getSize());
+			oldOrder.setTopping(newOrder.getToppings());
+			oldOrder.setPrice(newOrder.getPrice());
+			session.merge(oldOrder);
+			transaction.commit();
+
+		} catch (HibernateException he) {
+			transaction.rollback();
+			System.out.println("DAO Error: Transaction rolled back.");
+			System.out.println(he.getMessage());
+		} finally {
+			session.close();
+			sessionFactory.close();
+			System.out.println("Success.");
+		}
 	}
 
-	public boolean cancelOrder(Order order) {
-		return false;
+	public int cancelOrder(User user, int orderID) {
+		Session session = null;
+		Transaction transaction = null;
+		int successes = 0;
+
+		try {
+			sessionFactory = HibernateUtil.getSessionFactory();
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			org.hibernate.Query deleteOrder = session
+					.createQuery("DELETE FROM Order WHERE USERNAME = :userID AND ORDER_ID = :orderID");
+			deleteOrder.setParameter("userID", user.getUserId());
+			deleteOrder.setParameter("orderID", orderID);
+			successes = deleteOrder.executeUpdate();
+			transaction.commit();
+
+		} catch (HibernateException he) {
+			transaction.rollback();
+			System.out.println("DAO Error: Transaction rolled back.");
+			System.out.println(he.getMessage());
+		} finally {
+			session.close();
+			sessionFactory.close();
+		}
+		return successes;
 	}
 
+	public void createDiscountedOrder(User user, DiscountedOrder order) {
+		Session session = null;
+		Transaction transaction = null;
+
+		try {
+			sessionFactory = HibernateUtil.getSessionFactory();
+
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			session.save(order);
+			transaction.commit();
+
+		} catch (HibernateException he) {
+			System.out.println("DAO Error: Create Order Failed");
+			System.out.println(he.getMessage());
+		} finally {
+			session.close();
+			sessionFactory.close();
+		}
+	}
+
+	// Helper to create toppings table
+	public void prepareToppings(List<Topping> t) {
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			sessionFactory = HibernateUtil.getSessionFactory();
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			for (Topping topping : t) {
+				session.save(topping);
+			}
+			transaction.commit();
+
+		} catch (HibernateException he) {
+			System.out.println("Toppings table add has failed");
+			System.out.println(he.getMessage());
+		} finally {
+			session.close();
+			sessionFactory.close();
+		}
+	}
 }

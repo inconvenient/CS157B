@@ -20,7 +20,7 @@ public class Order {
 	private User user;
 
 	@Column(name = "PRICE")
-	private int price;
+	private double price;
 
 	@Column(name = "DELIVERY_TIME")
 	@Temporal(TemporalType.DATE)
@@ -34,8 +34,8 @@ public class Order {
 	@Column(name = "SIZE")
 	private PizzaSize size;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinTable(name="order_topping", joinColumns=@JoinColumn(name="order_id"), inverseJoinColumns=@JoinColumn(name="topping"))
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "order_topping", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "topping"))
 	@Column(name = "TOPPINGS")
 	private List<Topping> toppings = new ArrayList<Topping>();
 
@@ -46,10 +46,11 @@ public class Order {
 
 	public enum PizzaSize {
 
-		SMALL(3), MEDIUM(5), LARGE(7);
-		private int cost;
+		SMALL(3), MEDIUM(5), LARGE(7), 
+		dSMALL(2.7), dMEDIUM(4.5), dLARGE(6.3);
+		private double cost;
 
-		PizzaSize(int cost) {
+		PizzaSize(double cost) {
 			this.cost = cost;
 		}
 	}
@@ -83,11 +84,11 @@ public class Order {
 		this.orderId = orderId;
 	}
 
-	public int getPrice() {
+	public double getPrice() {
 		return size.cost;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.size.cost = price;
 	}
 
@@ -105,6 +106,10 @@ public class Order {
 
 	public void removeTopping(Topping topping) {
 		toppings.remove(topping);
+	}
+
+	public void setTopping(List<Topping> toppings) {
+		this.toppings = toppings;
 	}
 
 	public List<Topping> getToppings() {

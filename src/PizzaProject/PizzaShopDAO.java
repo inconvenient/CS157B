@@ -10,11 +10,13 @@ public interface PizzaShopDAO {
 	User login(String username, String password);
 
 	void createOrder(User user, Order order);
+	
+	void createDiscountedOrder(User user, DiscountedOrder order);
 
 	List viewOrder(User user);
 
-	Order changeOrder(Order order);
+	void changeOrder(User user, int orderID, Order order);
 
-	boolean cancelOrder(Order order);
+	int cancelOrder(User user, int orderID);
 
 }
