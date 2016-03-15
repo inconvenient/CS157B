@@ -24,8 +24,8 @@ public class Order {
 	private double price;
 
 	@Column(name = "DELIVERY_TIME")
-	@Temporal(TemporalType.DATE)
-	private Calendar deliveryTime;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date deliveryTime;
 
 	@Enumerated
 	@Column(name = "PAYMENT_METHOD")
@@ -92,11 +92,11 @@ public class Order {
 		this.size.cost = price;
 	}
 
-	public Calendar getDeliveryTime() {
+	public Date getDeliveryTime() {
 		return deliveryTime;
 	}
 
-	public void setDeliveryTime(Calendar deliveryTime) {
+	public void setDeliveryTime(Date deliveryTime) {
 		this.deliveryTime = deliveryTime;
 	}
 

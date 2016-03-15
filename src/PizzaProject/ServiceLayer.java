@@ -1,10 +1,15 @@
 package PizzaProject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.TimeZone;
+
+import org.hibernate.type.TimestampType;
 
 public class ServiceLayer {
 
@@ -98,12 +103,13 @@ public class ServiceLayer {
 		return user;
 	}
 
-	public void createOrder(User user) {
+	public void createOrder(User user) throws ParseException {
 		// Main Order Components
 		boolean orderMade = false;
 		boolean toppingsMade = false;
 		boolean pickedSize = false;
 		boolean pickedPayment = false;
+		boolean pickedDate = false;
 
 		// User selection loop booleans
 		boolean toppingError = false;
@@ -276,11 +282,18 @@ public class ServiceLayer {
 				System.out.println("Payment method chosen.");
 			}
 
-			// Set Date
-			Calendar date = Calendar.getInstance();
-			date.setTime(new Date());
-			date.add(Calendar.HOUR_OF_DAY, 1);
-			order.setDeliveryTime(date);
+			// Pick delivery time
+			while (!pickedDate) {
+				Date deliveryDate = null;
+				System.out.println("Please choose a delivery date in this format. Ex: Thu Jun 18 2016 13:45:00");
+				String inputDate = in.nextLine();
+				SimpleDateFormat parserSDF = new SimpleDateFormat("EEE MMM d yyyy HH:mm:ss");
+				deliveryDate = parserSDF.parse(inputDate);
+				if (deliveryDate != null) {
+					order.setDeliveryTime(deliveryDate);
+					pickedDate = true;
+				}
+			}
 
 			// Finalize order and call DAO.
 			user.addOrder(order);
@@ -289,12 +302,13 @@ public class ServiceLayer {
 		}
 	}
 
-	public void createDiscountedOrder(User user) {
+	public void createDiscountedOrder(User user) throws ParseException {
 		// Main Order Components
 		boolean orderMade = false;
 		boolean toppingsMade = false;
 		boolean pickedSize = false;
 		boolean pickedPayment = false;
+		boolean pickedDate = false;
 
 		// User selection loop booleans
 		boolean toppingError = false;
@@ -467,11 +481,18 @@ public class ServiceLayer {
 				System.out.println("Payment method chosen.");
 			}
 
-			// Set Date
-			Calendar date = Calendar.getInstance();
-			date.setTime(new Date());
-			date.add(Calendar.HOUR_OF_DAY, 2);
-			discOrder.setDeliveryTime(date);
+			// Pick delivery time
+			while (!pickedDate) {
+				Date deliveryDate = null;
+				System.out.println("Please choose a delivery date in this format. Ex: Thu Jun 18 2016 13:45:00");
+				String inputDate = in.nextLine();
+				SimpleDateFormat parserSDF = new SimpleDateFormat("EEE MMM d yyyy HH:mm:ss");
+				deliveryDate = parserSDF.parse(inputDate);
+				if (deliveryDate != null) {
+					discOrder.setDeliveryTime(deliveryDate);
+					pickedDate = true;
+				}
+			}
 
 			// Finalize order and call DAO.
 			user.addOrder(discOrder);
@@ -501,7 +522,7 @@ public class ServiceLayer {
 		boolean toppingApprove = false;
 
 		List<Integer> choices = null;
-		Order order = new Order();
+		DiscountedOrder order = new DiscountedOrder();
 		order.addUser(user);
 		// Parsing user input
 		while (!orderMade) {
@@ -514,13 +535,13 @@ public class ServiceLayer {
 					int size = Integer.parseInt(input);
 					switch (size) {
 					case 1:
-						order.setSize(Order.PizzaSize.SMALL);
+						order.setSize(Order.PizzaSize.dSMALL);
 						break;
 					case 2:
-						order.setSize(Order.PizzaSize.MEDIUM);
+						order.setSize(Order.PizzaSize.dMEDIUM);
 						break;
 					case 3:
-						order.setSize(Order.PizzaSize.LARGE);
+						order.setSize(Order.PizzaSize.dLARGE);
 						break;
 					}
 					pickedSize = true;

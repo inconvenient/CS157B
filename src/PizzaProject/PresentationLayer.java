@@ -1,5 +1,6 @@
 package PizzaProject;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class PresentationLayer {
 	static ServiceLayer sl = new ServiceLayer();
 
 	// Main
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		// Sign up or Login use case
 		System.out.println("Welcome to Mr.Flaaf's Pizzeria. \nType 1 to log in or type 2 to register.");
 		System.out.println("Option:");
@@ -64,7 +65,7 @@ public class PresentationLayer {
 				System.out.println("---------------------------------");
 				for (Order o : orders2) {
 					System.out.println("Order ID: " + o.getOrderId());
-					System.out.println("Delivery Time: " + o.getDeliveryTime().getTime());
+					System.out.println("Delivery Time: " + o.getDeliveryTime().toString());
 					System.out.println("Price: " + o.getPrice());
 					System.out.println("Size: " + o.getSize());
 					System.out.print("Toppings: ");
@@ -85,7 +86,7 @@ public class PresentationLayer {
 				System.out.println("---------------------------------");
 				for (Order o : orders3) {
 					System.out.println("Order ID: " + o.getOrderId());
-					System.out.println("Delivery Time: " + o.getDeliveryTime().getTime());
+					System.out.println("Delivery Time: " + o.getDeliveryTime().toString());
 					System.out.println("Price: " + o.getPrice());
 					System.out.println("Size: " + o.getSize());
 					System.out.print("Toppings: ");
@@ -111,7 +112,7 @@ public class PresentationLayer {
 				System.out.println("---------------------------------");
 				for (Order o : orders4) {
 					System.out.println("Order ID: " + o.getOrderId());
-					System.out.println("Delivery Time: " + o.getDeliveryTime().getTime());
+					System.out.println("Delivery Time: " + o.getDeliveryTime().toString());
 					System.out.println("Price: " + o.getPrice());
 					System.out.println("Size: " + o.getSize());
 					System.out.print("Toppings: ");
